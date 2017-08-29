@@ -1,0 +1,8 @@
+<div *ngIf="currentWeather.city != ''">
+  <h1>Aktuelles Wetter für {{currentWeather.city}}</h1>
+  <div class="col-2">
+    <p>{{currentWeather.condition}}, {{currentWeather.low}} - {{currentWeather.high}}° C</p>
+    <p>Sonnenaufgang: {{currentWeather.sunrise}} Uhr</p>
+    <p>Sonnenuntergang: {{currentWeather.sunset}} Uhr</p>
+  </div>
+</div>

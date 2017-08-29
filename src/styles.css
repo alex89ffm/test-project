@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+.panel-violet {
+  border-color: #400040 !important;
+}
+.panel-violet > .panel-heading {
+  color: #fff;
+  background-color: #3A003A;
+  border-color: #3A003A;
+}
+.panel-red > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #3A003A;
+}
+.panel-violet > .panel-heading .badge {
+  color: #3A003A;
+  background-color: #fff;
+}
+.panel-violet > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #3A003A;
+}
+.btn-violet{
+  background-color: #400040;
+  border-color: #400040;
+  color: white !important;
+}
+.btn-violet:hover {
+  background-color: #600060;
+  border-color: white;
+  color:white !important;
+}
+a{
+  color:#600060 !important;
+}
