@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.1.
 
-##running the project
+## Running the project
 
 run `ng serve`to run the angular 4 app
 run `npm run start-node` to run the node.js Server.
