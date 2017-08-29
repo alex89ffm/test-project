@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.1.
 
+##running the project
+
+run `ng serve`to run the angular 4 app
+run `npm run start-node` to run the node.js Server.
+
+Both has to be started to get the Application to work.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
