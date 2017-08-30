@@ -1,0 +1,23 @@
+$blue: #3bbfce;
+$red: #ff0000;
+$margin: 16px;
+
+.content-navigation {
+  border-color: $blue;
+  color: darken($blue, 30%);
+}
+
+.border {
+  padding: $margin / 2;
+  margin: $margin / 2;
+  border-width: 2px;
+
+  border-style: solid;
+
+  &.color-blue {
+    border-color:$blue;
+  }
+  &.color-red {
+    border-color:$red;
+  }
+}

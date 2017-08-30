@@ -48,14 +48,14 @@ app.get('/weather', (request, response) => {
       res.on('end', function() {
         console.log('data', data);
         parser.parseString(data, function(err, js_result) {
-
+          console.log(JSON.stringify(js_result.city, null, 2));
           const weatherResult = new Weather({
             city:js_result.current.city[0].name[0],
             condition: js_result.current.weather[0].value[0],
             low: js_result.current.temperature[0].min[0],
             high: js_result.current.temperature[0].max[0],
-            sunrise: dateFormat(new Date(js_result.current.city[0].sun[0].rise[0]), 'HH:mm'),
-            sunset: dateFormat(new Date(js_result.current.city[0].sun[0].set[0]), 'HH:mm')
+            sunrise: dateFormat(new Date(js_result.current.city[0].sun[0].rise[0]), 'H:MM'),
+            sunset: dateFormat(new Date(js_result.current.city[0].sun[0].set[0]), 'H:MM')
           })
           response.json(weatherResult);
         });

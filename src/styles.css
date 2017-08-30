@@ -30,3 +30,15 @@
 a{
   color:#600060 !important;
 }
+a:hover{
+  color:#900090 !important;
+}
+.navItem:hover{
+  background: #d0d0d0 !important;
+  border-color:red;
+  border: 0px solid;
+  border-radius: 4px;
+}
+.navItem a:hover{
+  color:#900090 !important;
+}

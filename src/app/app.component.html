@@ -1,18 +1,15 @@
 <div>
   <div class="navbar navbar-default">
     <div>
-
-      <a class="nav navbar-brand">{{pagetitle}}</a>
+      <div class="nav navbar-header">
+        <a class="nav navbar-brand">{{pagetitle}}</a>
+      </div>
       <ul class="nav navbar-nav">
-
-        <li><a [routerLink]="['/welcome']">Home</a></li>
-        <li><a [routerLink]="['/products']">Products</a></li>
-        <li><a [routerLink]="['/editProduct', 0]">add product</a></li>
-
+        <li class="navItem"><a [routerLink]="['/welcome']">Home</a></li>
+        <li class="navItem"><a [routerLink]="['/products']">Products</a></li>
+        <li class="navItem"><a [routerLink]="['/editProduct', 0]">add product</a></li>
       </ul>
-
     </div>
-
   </div>
   <div class="container-fluid">
     <router-outlet></router-outlet>
