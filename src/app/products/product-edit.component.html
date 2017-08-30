@@ -10,9 +10,7 @@
         <fieldset>
           <!-- product name-->
           <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('productName').touched ||
-                                        productForm.get('productName').dirty) &&
-                                        !productForm.get('productName').valid }">
+              [ngClass]="{'has-error': displayMessage.productName }">
               <label class="col-md-2 control-label"
                      for="productNameId">Product Name</label>
 
@@ -22,23 +20,14 @@
                          type="text"
                          placeholder="Product Name (required)"
                          formControlName="productName" />
-                  <span class="help-block" *ngIf="(productForm.get('productName').touched ||
-                                                   productForm.get('productName').dirty) &&
-                                                   productForm.get('productName').errors">
-                    <span *ngIf="productForm.get('productName').errors.required">
-                        Please enter a Product name.
-                    </span>
-                    <span *ngIf="productForm.get('productName').errors.minlength">
-                        The Product name must be longer than 3 characters.
-                    </span>
-                </span>
+                  <span class="help-block" *ngIf="displayMessage.productName">
+                    {{displayMessage.productName}}
+                  </span>
               </div>
           </div>
           <!-- product Code-->
           <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('productCode').touched ||
-                                        productForm.get('productCode').dirty) &&
-                                        !productForm.get('productCode').valid }">
+              [ngClass]="{'has-error': displayMessage.productCode }">
               <label class="col-md-2 control-label"
                      for="productCodeId">Product Code</label>
 
@@ -48,23 +37,13 @@
                          type="text"
                          placeholder="Product Code (required)"
                          formControlName="productCode" />
-                  <span class="help-block" *ngIf="(productForm.get('productCode').touched ||
-                                                   productForm.get('productCode').dirty) &&
-                                                   productForm.get('productCode').errors">
-                    <span *ngIf="productForm.get('productCode').errors.required">
-                        Please enter a Product Code.
-                    </span>
-                    <span *ngIf="productForm.get('productCode').errors.minlength">
-                        The Product Code must be longer than 3 characters.
-                    </span>
+                  <span class="help-block" *ngIf="displayMessage.productCode">
+                    {{displayMessage.productCode}}
                 </span>
               </div>
           </div>
           <!--Release Date-->
-          <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('releaseDate').touched ||
-                                        productForm.get('releaseDate').dirty) &&
-                                        !productForm.get('releaseDate').valid }">
+          <div class="form-group">
               <label class="col-md-2 control-label"
                      for="releaseDateId">Release Date</label>
               <div class="col-md-8">
@@ -73,20 +52,11 @@
                          type="text"
                          placeholder="Release Date"
                          formControlName="releaseDate" />
-                  <span class="help-block" *ngIf="(productForm.get('releaseDate').touched ||
-                                                   productForm.get('releaseDate').dirty) &&
-                                                   productForm.get('releaseDate').errors">
-                    <span *ngIf="productForm.get('releaseDate').errors.required">
-                        Please enter a Release Date.
-                    </span>
-                </span>
               </div>
           </div>
           <!--description-->
           <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('description').touched ||
-                                        productForm.get('description').dirty) &&
-                                        !productForm.get('description').valid }">
+              [ngClass]="{'has-error': displayMessage.description}">
               <label class="col-md-2 control-label"
                      for="descriptionId">Description</label>
 
@@ -96,20 +66,14 @@
                          type="text"
                          placeholder="Description (required)"
                          formControlName="description" />
-                  <span class="help-block" *ngIf="(productForm.get('description').touched ||
-                                                   productForm.get('description').dirty) &&
-                                                   productForm.get('description').errors">
-                    <span *ngIf="productForm.get('description').errors.required">
-                        Please enter a Product Description.
-                    </span>
-                </span>
+                  <span class="help-block" *ngIf="displayMessage.description">
+                    {{displayMessage.description}}
+                  </span>
               </div>
           </div>
           <!--price-->
           <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('price').touched ||
-                                        productForm.get('price').dirty) &&
-                                        !productForm.get('price').valid }">
+              [ngClass]="{'has-error': displayMessage.price }">
               <label class="col-md-2 control-label"
                      for="priceId">Price</label>
 
@@ -119,20 +83,14 @@
                          type="text"
                          placeholder="Price (required)"
                          formControlName="price" />
-                  <span class="help-block" *ngIf="(productForm.get('price').touched ||
-                                                   productForm.get('price').dirty) &&
-                                                   productForm.get('price').errors">
-                    <span *ngIf="productForm.get('price').errors.required">
-                        Please enter a Price.
-                    </span>
-                </span>
+                  <span class="help-block" *ngIf="displayMessage.price">
+                    {{displayMessage.price}}
+                  </span>
               </div>
           </div>
           <!--Star rating-->
           <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('starRating').touched ||
-                                        productForm.get('starRating').dirty) &&
-                                        !productForm.get('starRating').valid }">
+              [ngClass]="{'has-error': displayMessage.starRating }">
               <label class="col-md-2 control-label"
                      for="starRatingId">Star Rating</label>
 
@@ -142,20 +100,13 @@
                          type="text"
                          placeholder="Star Rating (required)"
                          formControlName="starRating" />
-                  <span class="help-block" *ngIf="(productForm.get('starRating').touched ||
-                                                   productForm.get('starRating').dirty) &&
-                                                   productForm.get('starRating').errors">
-                    <span *ngIf="productForm.get('starRating').errors.required">
-                        Please enter a Star Rating.
-                    </span>
-                </span>
+                  <span class="help-block" *ngIf="displayMessage.starRating">
+                    {{displayMessage.starRating}}
+                  </span>
               </div>
           </div>
           <!--Star rating-->
-          <div class="form-group"
-              [ngClass]="{'has-error': (productForm.get('imageUrl').touched ||
-                                        productForm.get('imageUrl').dirty) &&
-                                        !productForm.get('imageUrl').valid }">
+          <div class="form-group">
               <label class="col-md-2 control-label"
                      for="imageUrlId">Image URL</label>
 
@@ -165,13 +116,6 @@
                          type="text"
                          placeholder="Image Url (required)"
                          formControlName="imageUrl" />
-                  <span class="help-block" *ngIf="(productForm.get('imageUrl').touched ||
-                                                   productForm.get('imageUrl').dirty) &&
-                                                   productForm.get('imageUrl').errors">
-                    <span *ngIf="productForm.get('imageUrl').errors.required">
-                        Please enter a Image URL.
-                    </span>
-                </span>
               </div>
           </div>
 
@@ -227,6 +171,6 @@
     </form>
   </div>
   <div class="panel-footer">
-    {{productForm.touched}}
+    {{displayMessage | json}}
   </div>
 </div>

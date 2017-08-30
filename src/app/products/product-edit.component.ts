@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 import { IProduct } from './product';
 import { ActivatedRoute, Router  } from '@angular/router';
@@ -9,13 +9,15 @@ import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ProductService } from './product.service';
+import { NumberValidators } from '../shared/number.validator';
+import { GenericValidator } from '../shared/generic-validator';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css']
 })
-export class ProductEditComponent implements OnInit, OnDestroy {
+export class ProductEditComponent implements OnInit, OnDestroy, AfterViewInit {
 
   pageTitle = 'Edit Product';
   product: IProduct;
@@ -25,20 +27,49 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   get tags(): FormArray {
       return <FormArray>this.productForm.get('tags');
   }
+  // Use with the generic validation message class
+  displayMessage: { [key: string]: string } = {};
+  private validationMessages: { [key: string]: { [key: string]: string } };
+  private genericValidator: GenericValidator;
+
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private productService: ProductService) { }
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService) {
+      this.validationMessages = {
+          productName: {
+              required: 'Product name is required.',
+              minlength: 'Product name must be at least three characters.',
+              maxlength: 'Product name cannot exceed 50 characters.'
+          },
+          productCode: {
+              required: 'Product code is required.'
+          },
+          price: {
+            required: 'Product Price is required.'
+          },
+          starRating: {
+              range: 'Rate the product between 1 (lowest) and 5 (highest).'
+          },
+          description: {
+            required: 'Product Description is required.'
+          }
+      };
+
+      // Define an instance of the validator for use with this form,
+      // passing in this form's set of validation messages.
+      this.genericValidator = new GenericValidator(this.validationMessages);
+  }
 
   ngOnInit() {
     this.productForm = this.fb.group({
-      productName: ['', Validators.required],
+      productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       productCode: ['', Validators.required],
-      releaseDate: ['', Validators.required],
+      releaseDate: '',
       price: ['', Validators.required],
       description: ['', Validators.required],
-      starRating: ['', Validators.required],
-      imageUrl: ['', Validators.required],
+      starRating: ['', NumberValidators.range(1, 5)],
+      imageUrl: '',
       tags: this.fb.array([])
     });
 
@@ -46,6 +77,11 @@ export class ProductEditComponent implements OnInit, OnDestroy {
         params => {
             const id = +params['id'];
             this.getProduct(id);
+    });
+  }
+  ngAfterViewInit(): void {
+    this.productForm.valueChanges.debounceTime(800).subscribe(value => {
+        this.displayMessage = this.genericValidator.processMessages(this.productForm);
     });
   }
   getProduct(id: number): void {
