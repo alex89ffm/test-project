@@ -51,6 +51,10 @@
           </tr>
         </tbody>
       </table>
+      <div *ngIf="filteredProducts && filteredProducts.length < 1">
+        <br>No Products to display!
+      </div>
     </div>
+
   </div>
 </div>

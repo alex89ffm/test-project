@@ -27,18 +27,30 @@ app.use(cors());
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname));
 
+//get all Products
 app.get('/products', function (request, response) {
   response.header("Access-Control-Allow-Origin", "*");
-  const assetsPath = path.resolve(__dirname, "assets");
-  const jsonPath = path.join(assetsPath, "products.json");
 
-  var json_products = fs.readFile(jsonPath, 'utf8', function (err, data) {
-    if (err) throw err; // we'll not consider error handling for now
-    var obj = JSON.parse(data);
-    response.json(obj);
-  });
+  if(!fs.existsSync(jsonPath)){
+    var emptyProducts = [];
+    fs.writeFileSync(jsonPath, JSON.stringify(emptyProducts, null, 2), (err) =>{
+      if(err){
+        console.log(err);
+        response.send("error");
+      }else{
+        response.json(JSON.parse(emptyProducts));
+      }
+    });
+  }else{
+    var json_products = fs.readFile(jsonPath, 'utf8', function (err, data) {
+      if (err) throw err; // we'll not consider error handling for now
+      response.json(JSON.parse(data));
+    });
+  }
+
 })
 
+//get Weather from openWeatherMap
 app.get('/weather', (request, response) => {
   response.header("Access-Control-Allow-Origin", "*");
   var data = '';
@@ -67,20 +79,29 @@ app.get('/weather', (request, response) => {
   req.on('error', function(e) {
     console.log('ERROR: ' + e.message);
   });
-})
-app.post('/products', (req, res) => {
-  var insertedObject = req.body;
-  console.log(insertedObject);
+});
+
+//Create Product
+app.post('/products', (request, response) => {
+  var insertedObject = request.body;
   var json_products = fs.readFile(jsonPath, 'utf8', function (err, data) {
     if (err) throw err; // we'll not consider error handling for now
     var obj = JSON.parse(data);
-    insertedObject.productId = parseInt(_.last(obj).productId) + 1;
+
+    //increment last found id by 1
+    var last = _.last(obj);
+    if(_.has(last, 'productId')){
+      insertedObject.productId = parseInt(last.productId) ;
+    }else{
+      insertedObject.productId = 1;
+    }
     obj.push(insertedObject);
-    fs.writeFileSync(jsonPath, JSON.stringify(obj));
-    res.send('success');
+    fs.writeFileSync(jsonPath, JSON.stringify(obj, null, 2));
+    response.send('success');
   });
 });
 
+//Read single Product
 app.get('/products/:id', (request, response) => {
   const id = parseInt(request.params.id);
   var json_products = fs.readFile(jsonPath, 'utf8', function (err, data) {
@@ -91,6 +112,7 @@ app.get('/products/:id', (request, response) => {
   });
 });
 
+//Update Product
 app.put('/products/:id', function (request, response) {
   var updatedObject = request.body;
   console.log(updatedObject);
@@ -104,8 +126,10 @@ app.put('/products/:id', function (request, response) {
     return response.send('saved');
   });
 });
-app.delete('/products/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+
+//Delete Product
+app.delete('/products/:id', (request, response) => {
+  const id = parseInt(request.params.id);
   var json_products = fs.readFile(jsonPath, 'utf8', function (err, data) {
     if (err) throw err; // we'll not consider error handling for now
     var obj = JSON.parse(data);
@@ -115,7 +139,7 @@ app.delete('/products/:id', (req, res) => {
     var result = JSON.stringify(obj, null, 2);
     console.log(result);
     fs.writeFileSync(jsonPath, result);
-    return res.send('deleted');
+    return response.send('deleted');
   });
 });
 
