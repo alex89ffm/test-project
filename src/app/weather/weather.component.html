@@ -6,3 +6,6 @@
     <p>Sonnenuntergang: {{currentWeather.sunset}} Uhr</p>
   </div>
 </div>
+<div class='has-error' *ngIf="errorMessage">
+  {{errorMessage}}
+</div>

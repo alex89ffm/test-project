@@ -24,6 +24,6 @@ export class WeatherService {
   }
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);
-    return Observable.throw(err.message);
+    return Observable.throw('Error: Weather Data could not be retrieved.');
   }
 }

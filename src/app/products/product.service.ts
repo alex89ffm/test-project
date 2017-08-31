@@ -33,7 +33,7 @@ export class ProductService {
 
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);
-    return Observable.throw(err.message);
+    return Observable.throw('Error: Product Data could not be retrieved.');
   }
 
   saveProduct(p: IProduct): Observable<IProduct> {
